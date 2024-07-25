@@ -30,6 +30,20 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
+    private static final String[] AUTH_WHITE_LIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/v2/api-docs/**",
+            "/swagger-resorcues/**",
+            "/swagger-ui.html",
+            "/webjars/swagger-ui/**"
+    };
+
+    private static final String[] CUSTOMER_WHITE_LIST = {
+            "/customer/register",
+            "/customer/login"
+    };
+
     @Bean
     UserDetailsService userDetailsService(){
         return new UserInfoDetailsService();
@@ -41,7 +55,7 @@ public class SecurityConfig {
         http.cors(AbstractHttpConfigurer::disable);
 
         return http.authorizeHttpRequests(a ->
-                a.requestMatchers("/customer/register").permitAll()
+                a.requestMatchers(CUSTOMER_WHITE_LIST).permitAll()
                         .requestMatchers(AUTH_WHITE_LIST).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated())
@@ -50,14 +64,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    private static final String[] AUTH_WHITE_LIST = {
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/v2/api-docs/**",
-            "/swagger-resorcues/**",
-            "/swagger-ui.html",
-            "/webjars/swagger-ui/**"
-    };
 
     @Bean
     PasswordEncoder passwordEncoder(){

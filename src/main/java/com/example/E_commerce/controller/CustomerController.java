@@ -1,5 +1,7 @@
 package com.example.E_commerce.controller;
 
+import com.example.E_commerce.dto.AuthDto;
+import com.example.E_commerce.dto.LoginDto;
 import com.example.E_commerce.model.Customer;
 import com.example.E_commerce.repository.CustomerRepository;
 import com.example.E_commerce.service.CustomerService;
@@ -20,7 +22,12 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/register")
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<Customer> createCustomer (@RequestBody Customer customer){
         return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginDto> login (@RequestBody AuthDto authDto){
+        return new ResponseEntity<>(customerService.login(authDto), HttpStatus.OK);
     }
 }
