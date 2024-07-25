@@ -1,6 +1,7 @@
 package com.example.E_commerce.service;
 
 import com.example.E_commerce.dto.AuthDto;
+import com.example.E_commerce.dto.CustomerDto;
 import com.example.E_commerce.dto.LoginDto;
 import com.example.E_commerce.enums.RoleEnum;
 import com.example.E_commerce.model.Customer;
@@ -28,12 +29,13 @@ public class CustomerService {
     @Autowired
     private JwtService jwtService;
 
-    public Customer createCustomer(Customer customer){
+
+    public CustomerDto createCustomer(Customer customer){
         if (Objects.isNull(customer.getRoles())){
             customer.setRoles(RoleEnum.ROLE_USER.toString());
         }
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return customerRepository.save(customer);
+        return CustomerMapper.INSTANCE.customerToCustomerDto(customerRepository.save(customer));
     }
 
     public LoginDto login(AuthDto authDto){
