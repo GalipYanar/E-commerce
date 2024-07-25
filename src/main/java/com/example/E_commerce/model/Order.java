@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 
 public class Order {
 
@@ -17,4 +17,13 @@ public class Order {
 
     @Column(name = "customer_id")
     private Long customerId;
+
+    @Column(name = "product_id")
+    private Long productId;
+
+    private Double price;
+
+    private int quantitiy;
+
+
 }

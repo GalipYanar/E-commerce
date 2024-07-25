@@ -6,6 +6,7 @@ import com.example.E_commerce.dto.LoginDto;
 import com.example.E_commerce.enums.RoleEnum;
 import com.example.E_commerce.model.Customer;
 import com.example.E_commerce.repository.CustomerRepository;
+import com.example.E_commerce.util.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package com.example.E_commerce.service;
+package com.example.E_commerce.util;
 
 import com.example.E_commerce.dto.CustomerDto;
 import com.example.E_commerce.model.Customer;
