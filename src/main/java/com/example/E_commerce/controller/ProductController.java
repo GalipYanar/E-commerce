@@ -20,8 +20,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(name = "/create" ,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> createProduct(@RequestPart("file")MultipartFile file,
                                                  @ModelAttribute Product product){
         return new ResponseEntity<>(productService.createProduct(file, product), HttpStatus.CREATED);
@@ -37,5 +37,38 @@ public class ProductController {
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Product> getProduct(@PathVariable(value = "id") Long id){
         return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
+    }
+
+    @PutMapping(name = "/updadte" ,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Product> updateProduct(@RequestPart(value = "file", required = false) MultipartFile file,
+                                                 @ModelAttribute Product product){
+        return new ResponseEntity<>(productService.createProduct(file, product), HttpStatus.OK);
+    }
+
+    @PutMapping("/active/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Boolean> activeProduct(@PathVariable("id") Long id){
+        return new ResponseEntity<>(productService.activeOrDeActiveProduct(id, true), HttpStatus.OK);
+    }
+
+    @PutMapping("/deActive/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Boolean> deActiveProduct(@PathVariable("id") Long id){
+        return new ResponseEntity<>(productService.activeOrDeActiveProduct(id, false), HttpStatus.OK);
+    }
+
+
+    @DeleteMapping ("{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id){
+        productService.deleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<List<Product>> getAllProductList(){
+        return new ResponseEntity<>(productService.getAllProductList(), HttpStatus.OK);
     }
 }
