@@ -15,6 +15,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT p FROM Product p WHERE p.categoryId = categoryId")
     List<Product> getProductListByCategoryId(@Param("categoryId") Long categoryId);
 
-    @Query("SELECT FROM Product p SET p.active = :active WHERE p.id = :id")
-    Boolean updateProductActive(@Param("active") Boolean isActive, @Param("id") Long id);
+    @Query("UPDATE Product p SET p.active = :active WHERE p.id = :id")
+    void updateProductActive(@Param("active") Boolean isActive, @Param("id") Long id);
 }

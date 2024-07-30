@@ -55,8 +55,8 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found for this id: " + id));
     }
 
-    public boolean activeOrDeActiveProduct(Long id, boolean isActive){
-        return productRepository.updateProductActive(isActive, id);
+    public void activeOrDeActiveProduct(Long id, boolean isActive){
+            productRepository.updateProductActive(isActive, id);
     }
 
     public void deleteProduct(Long id){
