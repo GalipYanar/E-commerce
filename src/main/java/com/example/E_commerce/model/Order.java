@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -21,9 +24,11 @@ public class Order {
     @Column(name = "product_id")
     private Long productId;
 
-    private Double price;
+    private Double totalPrice;
 
     private int quantitiy;
+
+    private LocalDate purchaseDate;
 
 
 }

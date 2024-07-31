@@ -26,14 +26,14 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteCategoryById(@RequestParam("{id}") Long id){
+    public ResponseEntity<Void> deleteCategoryById(@RequestParam("id") Long id){
         categoryService.deleteCategoryById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory(@RequestParam("{id}") Long id){
+    public ResponseEntity<Category> getCategory(@RequestParam("id") Long id){
         return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
     }
 

@@ -52,7 +52,7 @@ public class ProductService {
     }
 
     public Product getProduct(Long id){
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found for this id: " + id));
+        return productRepository.getActiveProductById(id).orElseThrow(() -> new ProductNotFoundException("Product not found for this id: " + id));
     }
 
     public void activeOrDeActiveProduct(Long id, boolean isActive){
@@ -64,6 +64,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProductList(){
-        return productRepository.findAll();
+        return productRepository.getAllActiveProductList();
     }
 }

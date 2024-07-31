@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 
@@ -21,4 +22,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Modifying
     @Query("UPDATE Product p SET p.active = :active WHERE p.id = :id")
     void updateProductActive(@Param("active") Boolean isActive, @Param("id") Long id);
+
+    @Query("SELECT p FROM Product p WHERE p.active = true")
+    List<Product> getAllActiveProductList();
+
+    @Query("SELECT p FROM Product p WHERE p.active = true AND p.id = :id")
+    Optional<Product> getActiveProductById(@Param("id") Long id);
 }
